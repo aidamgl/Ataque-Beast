@@ -1,38 +1,62 @@
-# Heartbleed Attack Simulation
+# Implementación del Ataque BEAST
 
-Este proyecto está diseñado para simular el ataque Heartbleed, un fallo de seguridad crítico en OpenSSL que permite a un atacante obtener información sensible de la memoria del servidor. Este simulador se utiliza con fines educativos para demostrar cómo funciona el ataque y no debe ser usado para actividades maliciosas.
+Esta implementación es una simulación del ataque BEAST (Browser Exploit Against SSL/TLS), diseñada para demostrar cómo se podría realizar un ataque de descifrado en un entorno vulnerable que utilice el modo de cifrado AES-CBC.
 
-## Descripción
+## Descripción del Proyecto
 
-El ataque Heartbleed se basa en un fallo en la implementación de la extensión de Heartbeat en OpenSSL. El fallo consiste en no verificar correctamente el tamaño especificado en el campo de Payload Length con respecto al tamaño real del Payload enviado. Esto permite a un atacante obtener datos adicionales almacenados en la memoria del servidor, que pueden incluir información sensible como claves privadas.
+El objetivo de este proyecto es simular el ataque BEAST, mostrando cómo un atacante podría explotar la vulnerabilidad en el cifrado CBC (Cipher Block Chaining) en SSL/TLS para descifrar datos de un servidor vulnerable.
+
+El servidor simulado envía un mensaje cifrado, denominado `FLAG`, que debe ser descifrado por el atacante aprovechando la vulnerabilidad del modo CBC. 
+
+El resultado exitoso del ataque se muestra en las imágenes incluidas en el repositorio.
 
 ## Requisitos
 
-- Docker
-- Docker Compose
+- **Docker**: Asegúrate de tener Docker y Docker Compose instalados en tu sistema.
+- **Python 2.7**: El ataque y el servidor están implementados en Python 2.7, por lo que es necesario tener esta versión instalada en el entorno.
 
-## Instalación
+## Instrucciones para la Implementación
 
-1. Clona este repositorio en tu máquina local:
+### 1. Clona el repositorio
 
-   ```bash
-   git clone https://github.com/tu_usuario/heartbleed-simulation.git
-   cd heartbleed-simulation
-## Uso
-1. Ejecuta el siguiente comando para iniciar ambas imágenes:
-   ```bash
-   docker-compose up
+```bash
+git clone https://github.com/aidamgl/Ataque-Beast.git
+cd Ataque-Beast
+```
+### 2. Inicia los servicios con Docker Compose
+Para iniciar el servidor y el atacante en contenedores separados, ejecuta:
+```bash
+docker-compose up
+```
+### 3. Ejecuta los contenedores
+Una vez que los servicios están corriendo, abre dos terminales separadas:
 
-   Esto iniciará los contenedores necesarios para la simulación
-2. Accede al contenedor Ubuntu
-   Abre una nueva terminal y ejecuta el siguiente comando para acceder al contenedor en ejecución Ubuntu:
-   ```bash
-   docker-compose exec ubuntu bash
-3. Simula el inicio de sesión:
-   Dentro del contenedor Ubuntu, ejecuta el archivo curl.sh para simular el inicio de sesión. Usa el siguiente comando, en este caso se ha utilizado las credenciales Aidamgl y TFG{Aida_Flag2024%}, pero se pueden utilizar las de su preferencia
-   ```bash
-   bash curl.sh Aidamgl TFG{Aida_Flag2024%}
-4. Lanza el exploit:
-   Con el inicio de sesión simulado, ahora ejecuta el exploit en Python para realizar el ataque Heartbleed:
-   ```bash
-   python3 exploit.py
+- En la primera terminal, ejecuta el servidor:
+ ```bash
+docker exec -it server bash
+python2.7 server.py
+```
+- En la segunda terminal, ejecuta el ataque:
+```bash
+docker exec -it attack bash
+python2.7 beast-attack.py
+```
+### 4. Resultados
+
+Si todo ha sido implementado correctamente, el atacante debería poder descifrar el mensaje `FLAG` enviado por el servidor, demostrando el éxito del ataque BEAST. 
+
+## Archivos Principales
+
+- **server.py**: Define una aplicación web utilizando Flask que cifra los datos y los envía como una respuesta HTTP.
+- **beast-attack.py**: Código que realiza el ataque BEAST para intentar descifrar los datos cifrados que se obtienen del servidor.
+
+## Notas Importantes
+
+- Esta implementación no representa un escenario real, sino una simulación para fines académicos y de demostración.
+- El ataque implementado no compromete servidores reales, sino un entorno controlado diseñado para mostrar cómo funciona la vulnerabilidad en teoría.
+
+## Referencias
+
+Este trabajo se basa en el código original del repositorio [Beast-PoC](https://github.com/mpgn/poodle-PoC).
+
+
