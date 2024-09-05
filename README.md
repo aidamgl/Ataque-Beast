@@ -1,4 +1,4 @@
-# Implementación del Ataque BEAST
+# Ataque BEAST
 
 Esta implementación es una simulación del ataque BEAST (Browser Exploit Against SSL/TLS), diseñada para demostrar cómo se podría realizar un ataque de descifrado en un entorno vulnerable que utilice el modo de cifrado AES-CBC.
 
@@ -57,6 +57,6 @@ Si todo ha sido implementado correctamente, el atacante debería poder descifrar
 
 ## Referencias
 
-Este trabajo se basa en el código original del repositorio [Beast-PoC](https://github.com/mpgn/poodle-PoC).
+Este trabajo se basa en el código original del repositorio [Beast-PoC](https://github.com/mpgn/BEAST-PoC/tree/master).
 
 
