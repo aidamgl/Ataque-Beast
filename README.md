@@ -53,7 +53,7 @@ Si todo ha sido implementado correctamente, el atacante debería poder descifrar
 ## Notas Importantes
 
 - Esta implementación no representa un escenario real, sino una simulación para fines académicos y de demostración.
-- El ataque implementado no compromete servidores reales, sino un entorno controlado diseñado para mostrar cómo funciona la vulnerabilidad en teoría.
+- El ataque implementado no compromete servidores reales, sino un entorno controlado diseñado para mostrar cómo funciona teroria de la vulnerabilidad.
 
 ## Referencias
 
